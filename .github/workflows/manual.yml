@@ -12,6 +12,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
+        submodules: true  # Fetch Hugo themes (true OR recursive)
+        fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
     - name: Use Node.js 16.14
       uses: actions/setup-node@master
       with:
@@ -22,6 +24,6 @@ jobs:
       run: hugo
     - uses: w9jds/firebase-action@master
       with:
-        args: hugo && deploy --only hosting
+        args: deploy --only hosting
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
